@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:5.7
+    cap_add:       
+      - SYS_NICE
+    restart: always
+    environment:
+      # Database to create
+      MYSQL_DATABASE: 'cities_db'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      # external:internal
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'

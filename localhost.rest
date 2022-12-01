@@ -1,0 +1,37 @@
+GET http://localhost:5000/api/cities
+
+###
+GET http://localhost:5000/api/cities/1
+
+
+###
+POST http://localhost:5000/api/cities HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Tampere",
+  "country": "Finland"
+}
+
+###
+
+POST http://localhost:5000/api/cities HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Paris",
+  "country": "France"
+}
+
+###
+PUT http://localhost:5000/api/cities HTTP/1.1
+content-type: application/json
+
+{
+  "id": 5,
+  "name": "Nice",
+  "country": "France"
+}
+
+###
+DELETE http://localhost:5000/api/cities/81
