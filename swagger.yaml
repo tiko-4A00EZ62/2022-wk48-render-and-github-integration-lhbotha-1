@@ -1,0 +1,175 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Backend Development API
+  description: A simple API to teach Backend development and OpenAPI concepts
+servers:
+  - url: https://simple-express-api.onrender.com/api/cities
+paths:
+  /cities:
+    get:
+      description: Returns a array of cities     
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    country:
+                      type: string
+                    created:
+                      type: string
+                    updated:
+                      type: string
+        '500':
+          $ref: '#/components/responses/500Error'
+    post:
+      description: Creates a new city
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                name:
+                  type: string
+                country:
+                  type: string
+      responses:
+        '201':
+          description: Created succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    country:
+                      type: string
+                    created:
+                      type: string
+                    updated:
+                      type: string
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+
+    put:
+      description: Updates an eisting city
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                country:
+                  type: string
+      responses:
+        '200':
+          description: Updated succesfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '404':
+          $ref: '#/components/responses/404Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+
+  /cities/{id}:
+    get:
+      description: Obtain information about a specific city
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully returned a city
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '404':
+          $ref: '#/components/responses/404Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+    delete:
+      description: Delete a  specific city
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: City deleted
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: City deleted
+
+components:
+  schemas:
+    City:
+      type: object
+      properties:   
+          id:
+            type: integer
+          name:
+            type: string
+          country:
+            type: string
+          created:
+            type: string
+          updated:
+            type: string
+      
+  responses:
+    400Error:
+      description: Invalid request
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: Invalid value
+    404Error:
+      description: Not found
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: Not found
+    500Error:
+      description: Internal error
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: Internal error
